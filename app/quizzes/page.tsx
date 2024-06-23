@@ -1,39 +1,57 @@
-import { createClient } from "@/utils/supabase/server";
+"use client";
+import { createClient } from "@/utils/supabase/client";
 import Quiz from "@/components/Quiz";
+import RegularLayout from "../regular-layout";
+import { useState, useEffect } from "react";
+import { getQuiz, getQuizzes, getUser } from "@/utils/actions";
 
-async function addQuiz(supabase, uuid) {
-  const { error } = await supabase.from("quizzes").insert({
-    user_id: uuid,
-    title: "Dog Quiz",
-    description: "quiz about dogs",
-    questions: [],
-  });
-}
+export default function Page() {
+  const [loading, setLoading] = useState(true);
+  const [userData, setUserData] = useState({});
+  const [disabled, setDisabled] = useState(true);
+  const [quizzesData, setQuizzesData] = useState([{}]);
+  const [step, setStep] = useState(0);
+  const [limit, setLimit] = useState(9);
 
-export default async function Page() {
-  const supabase = createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  useEffect(() => {
+    const supabase = createClient();
+    (async () => {
+      const quizzes = await getQuizzes(step, 2);
+      setQuizzesData(quizzes);
 
-  console.log(user);
-  // const { data: quizzes } = await supabase
-  //   .from("quizzes")
-  //   .select("questions")
-  //   .eq("id", 1);
-  const { data: quizzes } = await supabase.from("quizzes").select();
+      let user = await getUser();
+      setUserData(user);
 
-  //if quizzes is empty and user is signed...show error message
-  //if user is signed out, prompt to log in
-  //otherwise, show list of quizzes (start/edit?/delete? each quiz, which passes in the questions)
+      if (user) {
+        setDisabled(false);
+      }
+      setLoading(false);
+    })();
+  }, []);
+
+  const showMore = async () => {
+    setStep(limit + 1);
+    setLimit(limit + 10);
+    const quizzes = await getQuizzes(step, limit);
+    setQuizzesData([...quizzesData, ...quizzes]);
+  };
+
   return (
-    <div>
-      {quizzes?.map((quiz) => {
-        return <Quiz quiz={quiz} />;
-      })}
-
-      <button onClick={addQuiz(supabase, user?.id)}>ADD</button>
-    </div>
+    <RegularLayout>
+      {!loading && (
+        <div>
+          {quizzesData?.map((quiz) => {
+            return <Quiz quiz={quiz} disabled={disabled} user={userData} />;
+          })}
+          <button
+            onClick={() => showMore()}
+            className="mb-8 w-full rounded border-2 p-2 hover:border-white"
+          >
+            show more
+          </button>
+        </div>
+      )}
+      {loading && <div>loading</div>}
+    </RegularLayout>
   );
-  //return <pre>{JSON.stringify(quizzes, null, 2)}</pre>;
 }
