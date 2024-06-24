@@ -46,14 +46,14 @@ export default function QuizForm({ id = undefined, edit = false }) {
     setCurrentTab(currentTab + 1);
   };
 
-  const handleIncorrect = (e, index) => {
+  const handleIncorrect = (e: any, index: number) => {
     let value = e.target.value;
     let newarr = [...questions];
     newarr[currentTab].incorrect[index] = value;
     setQuestions([...newarr]);
   };
 
-  const handleInput = (e, field) => {
+  const handleInput = (e: any, field: string) => {
     let value = e.target.value;
     let newarr = [...questions];
     if (field === "question") {
@@ -71,7 +71,7 @@ export default function QuizForm({ id = undefined, edit = false }) {
     setQuestions([...newarr]);
   };
 
-  const handleRemoveIncorrect = (e, id) => {
+  const handleRemoveIncorrect = (e: any, id: any) => {
     let newarr = [...questions];
     let incorrect = newarr[currentTab].incorrect;
     incorrect.splice(id, 1);
@@ -90,7 +90,7 @@ export default function QuizForm({ id = undefined, edit = false }) {
     }
   };
 
-  const handleAddQuiz = (e) => {
+  const handleAddQuiz = (e: any) => {
     e.preventDefault();
     let error = false;
     if (quizTitle === "") {
@@ -108,6 +108,7 @@ export default function QuizForm({ id = undefined, edit = false }) {
 
     if (!error) {
       if (edit) {
+        // @ts-ignore
         editQuiz(id, quizTitle, quizDescription, questions);
         setShowError("edit success!");
       } else {

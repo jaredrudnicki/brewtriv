@@ -14,7 +14,7 @@ import JPie from '@/components/JPie';
 import { User } from "@supabase/supabase-js";
 import { ProfileStatsData } from "@/utils/types";
 
-const shuffleArray = (array) => {
+const shuffleArray = (array: any) => {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     const temp = array[i];
@@ -24,6 +24,7 @@ const shuffleArray = (array) => {
   return array;
 };
 
+// @ts-ignore
 export default function PlayQuiz({ id }) {
   const { push } = useRouter();
   let [user, setUser] = useState<User | null>(null);
@@ -38,9 +39,9 @@ export default function PlayQuiz({ id }) {
   const [showNext, setShowNext] = useState(false);
   const [options, setOptions] = useState<Map<number, Array<any>> | []>([]);
 
-  const getOptions = (qs) => {
+  const getOptions = (qs: any) => {
     let os = new Map<number, Array<any>>();
-    qs.map((q, id) => {
+    qs.map((q: any, id: any) => {
       const o = shuffleArray([q.correct, ...q.incorrect]);
       os.set(id, o);
     });
@@ -51,8 +52,15 @@ export default function PlayQuiz({ id }) {
     (async () => {
       user = await getUser();
       setUser(user);
-      profile = await getProfile();
-      setProfile(profile);
+
+      if(user===null){
+        push("/login");
+      } else{
+        profile = await getProfile(user.id);
+        setProfile(profile);
+      }
+
+      
 
       const quiz = await getQuiz(id);
       setQuestions(decryptQuestions(quiz.quiz));
@@ -75,7 +83,7 @@ export default function PlayQuiz({ id }) {
     if (currentTab === questions.length - 1) {
       //if end of quiz
       setShowStats(true);
-      // TODO: update user profile
+      // @ts-ignore
       updateProfileSolo(stats, questions.length, user, profile);
     } else {
       setCurrentTab(currentTab + 1);
@@ -120,7 +128,8 @@ export default function PlayQuiz({ id }) {
                 {questions[currentTab].question}{" "}
               </h1>
               <div className="mb-4 grid gap-4 md:grid-cols-2">
-                {options.get(currentTab).map((option: string, id: number) => {
+                {// @ts-ignore
+                options.get(currentTab).map((option: string, id: number) => {
                   return (
                     <button
                       disabled={guessState != "guessing"}

@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+// @ts-ignore
 export default function RegularLayout({ children }) {
   return (
     <div className="grid grid-cols-5">

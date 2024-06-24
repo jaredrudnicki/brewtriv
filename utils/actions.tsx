@@ -76,7 +76,7 @@ export async function addQuiz(
 }
 
 export async function editQuiz(
-  id: number,
+  id: string,
   quizTitle: string,
   quizDescription: string,
   questions: Array<Question>,
@@ -98,7 +98,7 @@ export async function editQuiz(
   }
 }
 
-export async function getQuiz(id: number) {
+export async function getQuiz(id: string) {
   const supabase = createClient();
   let questions = await supabase
     .from("quizzes")
