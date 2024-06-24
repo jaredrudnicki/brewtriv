@@ -23,29 +23,29 @@ export function encryptQuestions(questions: Array<Question>) {
   return encrypted;
 }
 
-export function decryptQuestions(encrypted) {
+export function decryptQuestions(encrypted: any) {
   var decrypted = CryptoJS.AES.decrypt(encrypted, process.env.key);
   return JSON.parse(decrypted.toString(CryptoJS.enc.Utf8));
 }
 
-export function decryptCorrect(encrypted) {
+export function decryptCorrect(encrypted: any) {
   var decrypted = CryptoJS.AES.decrypt(encrypted, process.env.key).toString(
     CryptoJS.enc.Utf8,
   );
   return decrypted;
 }
 
-export function encryptIncorrect(incorrect) {
-  let encIncorrect = [];
-  incorrect.map((option) => {
+export function encryptIncorrect(incorrect: any) {
+  let encIncorrect : any[] = [];
+  incorrect.map((option: any) => {
     encIncorrect.push(CryptoJS.AES.encrypt(option, process.env.key).toString());
   });
   return encIncorrect;
 }
 
-export function decryptIncorrect(encIncorrect) {
-  let decIncorrect = [];
-  encIncorrect.map((encOption) => {
+export function decryptIncorrect(encIncorrect: any) {
+  let decIncorrect: any[] = [];
+  encIncorrect.map((encOption: any) => {
     decIncorrect.push(
       CryptoJS.AES.decrypt(encOption, process.env.key).toString(CryptoJS.enc.Utf8),
     );
@@ -166,7 +166,7 @@ export async function createSession(quizid: number) {
   return data ? data[0].id : [];
 }
 
-export async function getSession(id: number) {
+export async function getSession(id: string) {
   const supabase = createClient();
   let session = await supabase
     .from("play_together")
@@ -177,7 +177,7 @@ export async function getSession(id: number) {
 }
 
 export async function sessionUpdateState(
-  id: number,
+  id: string,
   nextQuestion: number,
   nextState: string,
   updatedUsersData: Array<UserData>,
@@ -199,7 +199,7 @@ export async function sessionUpdateState(
 }
 
 export async function updateSessionsUserData(
-  id: number,
+  id: string,
   updatedUsersData: Array<UserData>,
 ) {
   const supabase = createClient();
@@ -215,7 +215,7 @@ export async function updateSessionsUserData(
   }
 }
 
-export async function deleteSession(id: number) {
+export async function deleteSession(id: string) {
   const supabase = createClient();
   const { error } = await supabase.from("play_together").delete().eq("id", id);
   if (error) {
@@ -223,7 +223,7 @@ export async function deleteSession(id: number) {
   }
 }
 
-export function formatDate(date) {
+export function formatDate(date: string | Date) {
   var d = new Date(date),
     month = "" + (d.getMonth() + 1),
     day = "" + d.getDate(),
@@ -266,7 +266,7 @@ export async function getDailyDate() {
   return null;
 }
 
-export async function addDaily(question: string, correct: string, incorrect) {
+export async function addDaily(question: string, correct: string, incorrect: Array<string>) {
   const supabase = createClient();
   const date = await getDailyDate();
   var encCorrect = CryptoJS.AES.encrypt(
@@ -324,7 +324,8 @@ export async function getProfile(id: UUID | string ) {
   if (error) {
     console.log(error);
   }
-  return data[0];
+  if (data) return data[0];
+  return null;
 }
 
 export async function updateProfileName(updatedName: string) {
@@ -399,7 +400,7 @@ export async function updateProfileDailyIncorrect(
 
 export async function updateProfileQuizzesMade(user: User) {
   const supabase = createClient();
-  let profile = await getProfile();
+  let profile = await getProfile(user.id);
   console.log("HERE");
 
   const { error } = await supabase
@@ -435,7 +436,7 @@ export async function updateProfileSolo(
 }
 
 
-export async function updateProfileTogetherWins(id) {
+export async function updateProfileTogetherWins(id: string) {
   const supabase = createClient();
 
   const profile = await getProfile(id);

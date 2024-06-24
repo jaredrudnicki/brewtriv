@@ -24,7 +24,7 @@ export default function Page() {
   let [today, setToday] = useState("");
   let [yesterday, setYesterday] = useState("");
   let [user, setUser] = useState<User | null>(null);
-  let [profile, setProfile] = useState<ProfileStatsData | null>(null);
+  let [profile, setProfile] = useState<ProfileStatsData>({} as ProfileStatsData);
 
   const [question, setQuestion] = useState("");
   const [canPlay, setCanPlay] = useState(false);

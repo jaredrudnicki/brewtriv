@@ -10,22 +10,25 @@ import {
   updateProfileTogetherWins,
 } from "@/utils/actions";
 import { createClient } from "@/utils/supabase/client";
-import { RealtimeChannel } from "@supabase/supabase-js";
+import { RealtimeChannel, User } from "@supabase/supabase-js";
 import RegularLayout from "@/app/regular-layout";
 import { check, xMark, clipboard } from "@/utils/showIcons";
 import { useEffect, useState, useRef } from "react";
+import { Question, UserData } from "@/utils/types";
+import { useRouter } from "next/navigation";
 
 export default function Page({ params: { id } }: { params: { id: string } }) {
+  const { push } = useRouter();
   const supabase = createClient();
   const channel = useRef<RealtimeChannel | null>(null);
   const [loading, setLoading] = useState(true);
-  const [questionsData, setQuestionsData] = useState([{}]);
-  const [usersData, setUsersData] = useState([{}]);
+  const [questionsData, setQuestionsData] = useState([{} as Question]);
+  const [usersData, setUsersData] = useState([{} as UserData]);
   const [gameState, setGameState] = useState("NOT_STARTED");
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [quizId, setQuizId] = useState(0);
   const [isOwner, setIsOwner] = useState(false);
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState<User | null>({} as User);
   const [selected, setSelected] = useState("");
   const [guessState, setGuessState] = useState("guessing");
   const [options, setOptionsData] = useState([]);
@@ -88,8 +91,9 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
     )
     .subscribe();
 
-  const setOptions = (questions, index) => {
+  const setOptions = (questions: Array<Question>, index: number) => {
     setOptionsData(
+      // @ts-ignore
       shuffleArray([...questions[index].incorrect, questions[index].correct]),
     );
   };
@@ -99,6 +103,11 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
       const session = await getSession(id);
       const user = await getUser();
       setCurrentUser(user);
+
+      if(user === null) {
+        return push("/login");
+      }
+
       const isOwnerData = user.id === session.owner;
       setIsOwner(isOwnerData);
 
@@ -151,7 +160,7 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
       }
 
       let tempUsersData = usersData.map((item) =>
-        item.email === currentUser.email
+        item.email === currentUser?.email
           ? { ...item, score: item.score + points }
           : item,
       );
@@ -176,7 +185,7 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
 
   const isUserInSession = () => {
     var foundIndex = usersData.findIndex(
-      (item) => item.userid == currentUser.id,
+      (item) => item.userid == currentUser?.id,
     );
     return foundIndex !== -1;
   };
@@ -186,28 +195,28 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
     let tempUsersData = [
       ...usersData,
       {
-        userid: currentUser.id,
-        email: currentUser.email,
+        userid: currentUser?.id,
+        email: currentUser?.email,
         ready: false,
         score: 0,
       },
     ];
-    updateSessionsUserData(id, tempUsersData);
+    updateSessionsUserData(id, tempUsersData as UserData[]);
   };
 
   const readyUp = () => {
     let tempUsersData = usersData.map((item) =>
-      item.userid === currentUser.id ? { ...item, ready: true } : item,
+      item.userid === currentUser?.id ? { ...item, ready: true } : item,
     );
     updateSessionsUserData(id, tempUsersData);
   };
 
-  const removeUser = (user) => {
+  const removeUser = (user: UserData) => {
     let tempUsersData = usersData.filter((item) => item.email !== user.email);
     updateSessionsUserData(id, tempUsersData);
   };
 
-  const checkCanStart = (users) => {
+  const checkCanStart = (users: UserData[]) => {
     let isAllowedStart = true;
     users.map((user) => {
       if (!user.ready) {
@@ -221,12 +230,12 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
     // should already be sorted
     // usersData.sort((a, b) => (a.score > b.score) ? 1 : -1);
     const winner = usersData[0];
-    if (winner.userid === currentUser.id) {
+    if (winner.userid === currentUser?.id) {
       updateProfileTogetherWins(winner.userid);
     }
   };
 
-  const getButtonStyle = (option) => {
+  const getButtonStyle = (option: string) => {
     if (option === selected) {
       if (guessState === "correct") {
         return "w-full p-2 border-2 bg-green-500 my-1 rounded";
@@ -255,7 +264,7 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
                     <div className="mx-4 py-2">
                       {user.ready ? check("green") : xMark("red")}
                     </div>
-                    {!user.ready && user.email === currentUser.email && (
+                    {!user.ready && user.email === currentUser?.email && (
                       <button
                         className="rounded bg-green-500 p-2"
                         onClick={() => readyUp()}
@@ -264,7 +273,7 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
                         ready up{" "}
                       </button>
                     )}
-                    {isOwner && user.email !== currentUser.email && (
+                    {isOwner && user.email !== currentUser?.email && (
                       <button
                         className="rounded border-2 border-white px-2 hover:bg-gray-800"
                         onClick={() => removeUser(user)}
@@ -304,7 +313,7 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
                   type="text"
                   className="jinput truncate"
                   value={`${process.env.url}/session/${id}`}
-                  readonly
+                  readOnly={true}
                 />
                 <button
                   className="rounded bg-blue-900 px-2 hover:bg-blue-800 disabled:bg-slate-900 disabled:text-slate-600"

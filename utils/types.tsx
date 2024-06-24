@@ -6,6 +6,14 @@ export interface Question {
   question: string;
 }
 
+export interface QuizData {
+  id: number;
+  user_id: UUID;
+  title: string;
+  description: string;
+  quiz: JSON;
+}
+
 export interface UserData {
   email: string;
   ready: boolean;

@@ -4,14 +4,16 @@ import { useEffect, useState } from "react";
 import { showChevronVert } from "@/utils/showIcons";
 import { useRouter } from "next/navigation";
 import { createSession, getUser } from "@/utils/actions";
+import { User } from "@supabase/supabase-js";
+import { QuizData } from "@/utils/types";
 
-export default function Quiz({ quiz, disabled = false, user }) {
+export default function Quiz({ quiz={} as QuizData, disabled = false, user={} as User | null }) {
   const { push } = useRouter();
   const [isOwner, setIsOwner] = useState(false);
 
   useEffect(() => {
     if (user !== undefined && !disabled) {
-      setIsOwner(user.id === quiz.user_id);
+      setIsOwner(user?.id === quiz.user_id);
     }
   }, []);
 

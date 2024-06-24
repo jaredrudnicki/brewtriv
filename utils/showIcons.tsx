@@ -289,7 +289,7 @@ export const trash = (color = "currentColor") => {
   );
 };
 
-export function showChevronVert(show) {
+export function showChevronVert(show: boolean) {
   if (!show) {
     return chevronUp();
   }
@@ -304,7 +304,7 @@ export function showZap() {
   return <Image className="dark:invert" priority src={zap} alt="zap" />;
 }
 
-export function showEye(show) {
+export function showEye(show: boolean) {
   if (!show) {
     return eye();
   }

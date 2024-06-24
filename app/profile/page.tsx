@@ -26,23 +26,21 @@ export default function Profile() {
       }
 
       setUser(user);
-      await updateProfile();
+      profile = await getProfile(user.id);
+      setProfile(profile);
 
       setLoading(false);
     })();
   }, []);
 
-  const updateProfile = async(profileName) => {
-    profile = await getProfile(user.id);
-    setProfile(profile);
-    setProfileName(profileName || profile?.profile_name);
-  }
-
   const getSoloSuccessRate = () => {
-    if (profile?.play_solo_total === 0) {
-      return 0;
+    if (profile) {
+      if (profile?.play_solo_total === 0) {
+        return 0;
+      }
+      return profile?.play_solo_correct / profile?.play_solo_total;
     }
-    return profile?.play_solo_correct / profile?.play_solo_total;
+    return 0;
   };
 
   return (
@@ -76,7 +74,7 @@ export default function Profile() {
               className="rounded bg-blue-900 px-2 hover:bg-blue-800 disabled:bg-slate-900 disabled:text-slate-600"
               onClick={async() => {
                 updateProfileName(profileName)
-                await updateProfile(profileName);
+                setProfileName(profileName || profile?.profile_name || "");
                 setErrorMessage('success!')
               }}
             >

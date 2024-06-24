@@ -10,7 +10,7 @@ export default function Page() {
   const [incorrect, setIncorrect] = useState(["", "", ""]);
   const [error, setError] = useState("");
 
-  const handleIncorrect = (e, index) => {
+  const handleIncorrect = (e: any, index: number) => {
     let value = e.target.value;
     let newarr = [...incorrect];
     newarr[index] = value;
