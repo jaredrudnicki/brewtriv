@@ -10,7 +10,7 @@ export default async function Header() {
   return (
     <div className="jheader ">
       <div className="animate-in jcontainer flex items-center">
-        <h1> JRIVIA </h1>
+        <h1> BrewTriv </h1>
         <AuthButton />
       </div>
     </div>
