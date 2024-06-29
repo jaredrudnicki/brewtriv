@@ -75,12 +75,10 @@ export default function Page() {
 
   const checkCorrect = () => {
     if (user === null) {
-      console.log("go to login");
       return push("/login");
     }
     if (selected === correct) {
       //TODO: update user stats... (should update streaks, daily wins, latest daily) all that good stuff
-      //console.log(user, profile, yesterday, today)
       updateProfileDailyCorrect(user, profile, yesterday, today);
       setTodayCorrect(true);
     } else {
