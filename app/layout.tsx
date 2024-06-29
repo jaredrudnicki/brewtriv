@@ -19,6 +19,9 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en" className={GeistSans.className}>
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+      </head>
       <body className="bg-background text-foreground">
         <Header />
         <main className="min-h-screen flex-col">{children}</main>
