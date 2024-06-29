@@ -12,6 +12,13 @@ export const metadata = {
   metadataBase: new URL(defaultUrl),
   title: "BrewTriv",
   description: "The social trivia app helping you become a trivia buff",
+  alternates: {
+    canonical: '/',
+    languages: {
+      'en-US': '/en-US',
+      'de-DE': '/de-DE',
+    },
+  },
   openGraph: {
     images: [
       {
