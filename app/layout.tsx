@@ -1,5 +1,5 @@
 import { GeistSans } from "geist/font/sans";
-import ogImage from './opengraph-image.jpg';
+import ogImage from './opengraph-image.png';
 import twitterImage from './twitter-image.png';
 import "./globals.css";
 import Header from "@/components/Header";
