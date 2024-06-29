@@ -2,9 +2,10 @@
 const isProd = process.env.NODE_ENV === 'production'
 
 const nextConfig = {
+    basePath: '/',
     env: {
         key: 'rudnickey',
-        url: isProd ? "https://" : "http://localhost:3000"
+        url: isProd ? "https://www.brewtriv.com" : "http://localhost:3000"
     },
     async redirects() {
         return [
@@ -16,6 +17,7 @@ const nextConfig = {
           },
         ]
     },
+    metada
 };
 
 module.exports = nextConfig;
