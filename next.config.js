@@ -17,7 +17,6 @@ const nextConfig = {
           },
         ]
     },
-    metada
 };
 
 module.exports = nextConfig;
