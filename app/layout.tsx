@@ -8,7 +8,7 @@ const defaultUrl = process.env.NODE_ENV === "production"
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "BrewTrvi",
+  title: "BrewTriv",
   description: "The social trivia app helping you become a trivia buff",
   openGraph: {
     images: '/opengraph-image.png',
