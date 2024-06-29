@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react"
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import Header from "@/components/Header";
@@ -41,6 +42,7 @@ export default async function RootLayout({
       <body className="bg-background text-foreground">
         <Header />
         <main className="min-h-screen flex-col">{children}</main>
+        <Analytics />
       </body>
     </html>
   );
