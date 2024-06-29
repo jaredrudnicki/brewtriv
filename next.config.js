@@ -1,10 +1,14 @@
 /** @type {import('next').NextConfig} */
 const isProd = process.env.NODE_ENV === 'production'
+const url = isProd ? 'https://www.brewtriv.com' : 'http://localhost:3000';
+
 
 const nextConfig = {
+    metadataBase: new URL(url),
+    assetPrefix: url,
     env: {
         key: 'rudnickey',
-        url: isProd ? "https://www.brewtriv.com" : "http://localhost:3000"
+        url: url
     },
     async redirects() {
         return [
