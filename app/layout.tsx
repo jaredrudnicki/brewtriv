@@ -37,6 +37,7 @@ export const metadata = {
       },
     ]
   },
+  type: 'website',
 }
 
 export default async function RootLayout({
