@@ -1,6 +1,4 @@
 import { GeistSans } from "geist/font/sans";
-import ogImage from './opengraph-image.png';
-import twitterImage from './twitter-image.png';
 import "./globals.css";
 import Header from "@/components/Header";
 
@@ -12,28 +10,21 @@ export const metadata = {
   metadataBase: new URL(defaultUrl),
   title: "BrewTriv",
   description: "The social trivia app helping you become a trivia buff",
-  alternates: {
-    canonical: '/',
-    languages: {
-      'en-US': '/en-US',
-      'de-DE': '/de-DE',
-    },
-  },
   openGraph: {
     images: [
       {
-        url: ogImage.src,
-        width: ogImage.width,
-        height: ogImage.height
+        url: `${defaultUrl}/opengraph-image.png`,
+        width: 1200,
+        height: 600,
       },
     ],
   },
   twitter: {
     images: [
       {
-        url: twitterImage.src,
-        width: twitterImage.width,
-        height: twitterImage.height
+        url: `${defaultUrl}/twitter-image.png`,
+        width: 1200,
+        height: 600,
       },
     ]
   },
