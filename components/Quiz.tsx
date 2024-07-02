@@ -80,9 +80,11 @@ export default function Quiz({ quiz={} as QuizData, disabled = false, user={} as
             </Link>
           )}
         </div>
-        <button className="icon-red" onClick={() => setShowD(!showD)}>
-          {showChevronVert(!showD)}
-        </button>
+        {quiz.description !== "" && (
+          <button className="icon-red" onClick={() => setShowD(!showD)}>
+            {showChevronVert(!showD)}
+          </button>
+        )}
       </div>
     </div>
   );
