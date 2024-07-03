@@ -72,7 +72,9 @@ export default function Login({
         Back
       </Link>
 
+      
       <form className="animate-in text-foreground mt-16 flex w-full flex-1 flex-col justify-center gap-2">
+        <p className="text-yellow-400 text-center">In order to play on brewtriv.com, you need to create an account and be logged in!</p>
         <label className="text-md" htmlFor="email">
           Email
         </label>
