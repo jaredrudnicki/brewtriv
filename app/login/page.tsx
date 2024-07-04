@@ -15,7 +15,6 @@ export default function Login({
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
     const supabase = createClient();
-
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -29,11 +28,10 @@ export default function Login({
   const signUp = async (formData: FormData) => {
     "use server";
 
-    const origin = headers().get("origin");
+    const origin = process.env.NODE_ENV === 'production' ? 'https://www.brewtriv.com' : "localhost:3000"
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
     const supabase = createClient();
-
     const { error } = await supabase.auth.signUp({
       email,
       password,
@@ -99,14 +97,14 @@ export default function Login({
           className="text-foreground mb-2 rounded-md bg-green-700 px-4 py-2 text-white"
           pendingText="Signing In..."
         >
-          Sign In
+          Log In
         </SubmitButton>
         <SubmitButton
           formAction={signUp}
-          className="border-foreground/20 text-foreground mb-2 rounded-md border px-4 py-2"
+          className="border-foreground/20 text-foreground mb-2 rounded-md border px-4 py-2 text-white border-slate-500 hover:border-white"
           pendingText="Signing Up..."
         >
-          Sign Up
+          Create Account
         </SubmitButton>
         {searchParams?.message && (
           <p className="bg-foreground/10 text-foreground mt-4 p-4 text-center">
