@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { headers } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { SubmitButton } from "./submit-button";
@@ -36,7 +35,7 @@ export default function Login({
       email,
       password,
       options: {
-        emailRedirectTo: 'https://brewtriv.com/quizzes'
+        emailRedirectTo: 'https://www.brewtriv.com/quizzes'
       },
     });
 
@@ -107,7 +106,7 @@ export default function Login({
           Create Account
         </SubmitButton>
         {searchParams?.message && (
-          <p className="bg-foreground/10 text-foreground mt-4 p-4 text-center">
+          <p className="bg-foreground/10 text-foreground mt-4 p-4 text-center text-white">
             {searchParams.message}
           </p>
         )}
