@@ -28,10 +28,11 @@ export default function Login({
   const signUp = async (formData: FormData) => {
     "use server";
 
-    const origin = process.env.NODE_ENV === 'production' ? 'https://www.brewtriv.com' : "localhost:3000"
+    const origin = headers().get("origin");
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
     const supabase = createClient();
+
     const { error } = await supabase.auth.signUp({
       email,
       password,
@@ -95,14 +96,14 @@ export default function Login({
         <SubmitButton
           formAction={signIn}
           className="text-foreground mb-2 rounded-md bg-green-700 px-4 py-2 text-white"
-          pendingText="Signing In..."
+          pendingText="Logging In..."
         >
           Log In
         </SubmitButton>
         <SubmitButton
           formAction={signUp}
           className="border-foreground/20 text-foreground mb-2 rounded-md border px-4 py-2 text-white border-slate-500 hover:border-white"
-          pendingText="Signing Up..."
+          pendingText="Creating Account..."
         >
           Create Account
         </SubmitButton>
