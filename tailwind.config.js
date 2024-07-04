@@ -7,6 +7,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        'brewtriv-gray': '#05090B',
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         btn: {

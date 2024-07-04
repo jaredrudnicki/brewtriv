@@ -162,7 +162,7 @@ export default function QuizForm({ id = undefined, edit = false }) {
           />
         )}
 
-        <hr className="my-8 h-px border-0 bg-gray-200 dark:bg-gray-700" />
+        <hr className="my-8 h-px border-0 bg-gray-200 bg-gray-700" />
 
         <div className="rounded-md bg-gray-800 p-4">
           <div className="flex w-full flex-row justify-between">
@@ -181,7 +181,7 @@ export default function QuizForm({ id = undefined, edit = false }) {
           <input
             id="question"
             type="text"
-            className="mb-4 mt-2 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+            className="mb-4 mt-2 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 border-gray-600 bg-gray-700 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500"
             placeholder="Enter question here"
             value={questions[currentTab].question}
             onChange={(e) => handleInput(e, "question")}
@@ -191,7 +191,7 @@ export default function QuizForm({ id = undefined, edit = false }) {
           <input
             id="correct"
             type="text"
-            className="mb-4 mt-2 block rounded border-2 border-green-900 bg-gray-50 p-2 text-sm placeholder-gray-400 dark:bg-gray-700"
+            className="mb-4 mt-2 block rounded border-2 border-green-900 bg-gray-50 p-2 text-sm placeholder-gray-400 bg-gray-700"
             placeholder="Correct answer"
             value={questions[currentTab].correct}
             onChange={(e) => handleInput(e, "correct")}
@@ -214,7 +214,7 @@ export default function QuizForm({ id = undefined, edit = false }) {
                   <input
                     id={`incorrect-${id}`}
                     type="text"
-                    className="block rounded border-2 border-red-900 bg-gray-50 p-2 text-sm placeholder-gray-400 dark:bg-gray-700"
+                    className="block rounded border-2 border-red-900 bg-gray-50 p-2 text-sm placeholder-gray-400 bg-gray-700"
                     placeholder="Incorrect option"
                     value={incorrectOption}
                     required
@@ -289,7 +289,7 @@ export default function QuizForm({ id = undefined, edit = false }) {
           </div>
         </div>
         <button
-          className="mt-10 w-full rounded border-2 p-2 hover:border-white"
+          className="mt-10 w-full rounded border-slate-500 border-2 p-2 hover:border-white"
           // onSubmit={(e) => addQuiz(quizTitle, quizDescription, questions)}
           onClick={(e) => handleAddQuiz(e)}
         >

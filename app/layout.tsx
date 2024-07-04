@@ -39,7 +39,7 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en" className={GeistSans.className}>
-      <body className="bg-background text-foreground">
+      <body className="bg-background text-foreground bg-brewtriv-gray">
         <Header />
         <main className="min-h-screen flex-col">{children}</main>
         <Analytics />

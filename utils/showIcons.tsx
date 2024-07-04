@@ -301,7 +301,7 @@ export function showChevronVert(show: boolean) {
 }
 
 export function showZap() {
-  return <Image className="dark:invert" priority src={zap} alt="zap" />;
+  return <Image className="invert" priority src={zap} alt="zap" />;
 }
 
 export function showEye(show: boolean) {

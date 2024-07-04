@@ -31,7 +31,7 @@ export default function Quiz({ quiz={} as QuizData, disabled = false, user={} as
   };
 
   return (
-    <div className="mb-4 w-full rounded bg-gray-50 p-5 dark:bg-gray-700">
+    <div className="mb-4 w-full rounded bg-gray-50 p-5 bg-gray-700 text-white">
       <h1 className="mb-8 text-xl">{quiz.title}</h1>
       {showD && <p className="mb-2">{quiz.description}</p>}
       <div className="flex w-full flex-row justify-between">

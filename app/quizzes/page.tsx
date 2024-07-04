@@ -47,7 +47,7 @@ export default function Page() {
           })}
           <button
             onClick={() => showMore()}
-            className="mb-8 w-full rounded border-2 p-2 hover:border-white"
+            className="mb-8 w-full rounded border-2 border-slate-500 p-2 hover:border-white text-white"
           >
             show more
           </button>

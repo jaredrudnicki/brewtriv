@@ -73,13 +73,13 @@ export default function Login({
       </Link>
 
       
-      <form className="animate-in text-foreground mt-16 flex w-full flex-1 flex-col justify-center gap-2">
+      <form className="animate-in text-foreground mt-16 flex w-full flex-1 flex-col justify-center gap-2 text-white">
         <p className="text-yellow-400 text-center">In order to play on brewtriv.com, you need to create an account and be logged in!</p>
         <label className="text-md" htmlFor="email">
           Email
         </label>
         <input
-          className="mb-6 rounded-md border bg-inherit px-4 py-2"
+          className="mb-6 rounded-md border bg-inherit px-4 py-2 border-white"
           name="email"
           placeholder="you@example.com"
           required
@@ -88,7 +88,7 @@ export default function Login({
           Password
         </label>
         <input
-          className="mb-6 rounded-md border bg-inherit px-4 py-2"
+          className="mb-6 rounded-md border bg-inherit px-4 py-2 border-white"
           type="password"
           name="password"
           placeholder="••••••••"
@@ -96,7 +96,7 @@ export default function Login({
         />
         <SubmitButton
           formAction={signIn}
-          className="text-foreground mb-2 rounded-md bg-green-700 px-4 py-2"
+          className="text-foreground mb-2 rounded-md bg-green-700 px-4 py-2 text-white"
           pendingText="Signing In..."
         >
           Sign In
