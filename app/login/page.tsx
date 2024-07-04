@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { headers } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { SubmitButton } from "./submit-button";
@@ -10,7 +11,7 @@ export default function Login({
 }) {
   const signIn = async (formData: FormData) => {
     "use server";
-
+    
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
     const supabase = createClient();
@@ -27,15 +28,16 @@ export default function Login({
   const signUp = async (formData: FormData) => {
     "use server";
 
+    const origin = headers().get("origin");
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
     const supabase = createClient();
 
-    const { data, error } = await supabase.auth.signUp({
+    const { error } = await supabase.auth.signUp({
       email,
       password,
       options: {
-        emailRedirectTo: 'https://www.brewtriv.com/quizzes'
+        emailRedirectTo: `${origin}/auth/callback`,
       },
     });
 
