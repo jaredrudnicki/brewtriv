@@ -9,33 +9,39 @@ export default function Login({
 }: {
   searchParams: { message: string };
 }) {
-  const signIn = async (formData: FormData) => {
+
+  const signUp = async (formData: FormData) => {
     "use server";
-    
+
+    const origin = headers().get("origin");
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
     const supabase = createClient();
-    const { data, error } = await supabase.auth.signInWithPassword({
+
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
+      options: {
+        emailRedirectTo: `${origin}/auth/callback`,
+      },
     });
 
-    if(data.user === null) {
-      return redirect('/login?message=No user with that email please sign up')
+    if(data.user) {
+        return redirect("/signup?message=Email already exists please log in")
     }
 
     if (error) {
-      return redirect("/login?message=Could not authenticate user");
+        return redirect("/signup?message=Could not authenticate user");
     }
-    return redirect("/quizzes");
-  };
 
+    return redirect("/signup?message=Check email to continue sign in process");
+  };
 
   return (
     <div className="jcontainer justify-center gap-2 px-8 sm:max-w-md">
       <Link
         href="/quizzes"
-        className="text-foreground text-white border border-slate-500 hover:border-white group absolute flex items-center rounded-md px-4 py-2 text-sm no-underline"
+        className="text-foreground bg-btn-background hover:bg-btn-background-hover group absolute flex items-center rounded-md px-4 py-2 text-sm no-underline"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -56,7 +62,7 @@ export default function Login({
 
       
       <form className="animate-in text-foreground mt-16 flex w-full flex-1 flex-col justify-center gap-2 text-white">
-        <h1 className="w-full text-center text-white text-lg">Log In</h1>
+        <h1 className="w-full text-center text-white text-lg">Sign Up</h1>
         <p className="text-yellow-400 text-center">In order to play on brewtriv.com, you need to create an account and be logged in!</p>
         <label className="text-md" htmlFor="email">
           Email
@@ -78,18 +84,19 @@ export default function Login({
           required
         />
         <SubmitButton
-          formAction={signIn}
+          formAction={signUp}
           className="text-foreground mb-2 rounded-md bg-green-700 px-4 py-2 text-white"
-          pendingText="Logging In..."
+          pendingText="Signing Up..."
         >
-          Log In
+          Sign Up
         </SubmitButton>
         {searchParams?.message && (
           <p className="bg-foreground/10 text-foreground mt-4 p-4 text-center text-yellow-400">
             {searchParams.message}
           </p>
         )}
-        <p className="text-center">Dont have an account? <Link href="/signup" className="underline">Sign Up</Link></p>
+        <p className="text-center">Already have an account? <Link href="/login" className="underline">Log In</Link></p>
+        
       </form>
     </div>
   );
