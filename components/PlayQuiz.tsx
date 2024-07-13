@@ -94,12 +94,20 @@ export default function PlayQuiz({ id }) {
   };
 
   const getButtonStyle = (option: string) => {
-    if (option === selected) {
-      if (guessState === "correct") {
+    if(guessState === "correct"){
+      if(option === selected){
         return "w-full p-2 border-2 bg-green-500 my-1 rounded";
-      } else if (guessState === "incorrect") {
+      }
+    }
+    if(guessState === "incorrect") {
+      if(option === selected) {
         return "w-full p-2 border-2 bg-red-500 my-1 rounded";
       }
+      else if (option === questions[currentTab].correct) {
+        return "w-full p-2 border-2 bg-green-500 my-1 rounded";
+      }
+    }
+    if (option === selected) {
       return "w-full p-2 border-2 bg-blue-900 my-1 rounded";
     }
     return "w-full p-2 border-2 bg-gray-900 my-1 rounded disabled:bg-slate-900 disabled:text-slate-600 hover:border-blue-900";

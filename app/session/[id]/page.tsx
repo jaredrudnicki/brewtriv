@@ -35,6 +35,7 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
   const [guessesPerRound, setGuessesPerRound] = useState(0);
   const [canStart, setCanStart] = useState(false);
   const [startTime, setStartTime] = useState(new Date().getTime());
+  const [showScore, setShowScore] = useState(false);
 
   supabase
     .channel(id)
@@ -44,11 +45,16 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
           payload.payload.usersData.length &&
         isOwner
       ) {
-        nextQuestion();
+        setShowScore(true);
       } else {
         setGuessesPerRound(payload.payload.guesses_per_round);
       }
     });
+
+  supabase.channel(id).on("broadcast", { event: "correct-guess"}, (payload) => {
+    setUsersData(payload.payload.tempUsersData);
+    setShowScore(true);
+  });
 
   supabase
     .channel(id)
@@ -168,7 +174,15 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
       tempUsersData = tempUsersData.sort((a, b) =>
         a.score > b.score ? -1 : 1,
       );
-      nextQuestion(tempUsersData);
+
+      setGuessState("correct");
+      supabase.channel(id).send({
+        type: "broadcast",
+        event: "correct-guess",
+        payload: {
+          tempUsersData: tempUsersData,
+        },
+      })
     } else {
       setGuessState("incorrect");
 
@@ -236,15 +250,29 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
   };
 
   const getButtonStyle = (option: string) => {
-    if (option === selected) {
-      if (guessState === "correct") {
+    if (guessState === "correct") {
+      if (option === selected) {
         return "w-full p-2 border-2 bg-green-500 my-1 rounded";
-      } else if (guessState === "incorrect") {
+      }
+      return "w-full p-2 border-2 bg-gray-900 my-1 rounded disabled:bg-slate-900 disabled:text-slate-600 hover:border-blue-900";
+    }
+    else if (guessState === "incorrect") {
+      if (option === selected) {
         return "w-full p-2 border-2 bg-red-500 my-1 rounded";
       }
-      return "w-full p-2 border-2 bg-blue-900 my-1 rounded";
+      else if (option === questionsData[currentQuestion].correct) {
+        return "w-full p-2 border-2 bg-green-500 my-1 rounded";
+      }
+      return "w-full p-2 border-2 bg-gray-900 my-1 rounded disabled:bg-slate-900 disabled:text-slate-600 hover:border-blue-900";
     }
-    return "w-full p-2 border-2 bg-gray-900 my-1 rounded disabled:bg-slate-900 disabled:text-slate-600 hover:border-blue-900";
+    else { //guessing state
+      if (option === selected) {
+        return "w-full p-2 border-2 bg-blue-900 my-1 rounded";
+      }
+      return "w-full p-2 border-2 bg-gray-900 my-1 rounded disabled:bg-slate-900 disabled:text-slate-600 hover:border-blue-900";
+    }
+    
+    
   };
 
   if (loading) {
@@ -356,6 +384,14 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
             >
               Submit
             </button>
+            {(showScore && isOwner) && (
+              <button className="p-2 border rounded text-white"
+              onClick={() => {
+                nextQuestion(usersData);
+                setShowScore(false);
+              }}
+              >Show Scores</button>
+            )}
           </div>
         )}
 

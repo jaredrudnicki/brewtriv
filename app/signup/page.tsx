@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { SubmitButton } from "@/components/submit-button";
+import { getProfile } from "@/utils/actions";
 
 export default function Login({
   searchParams,
@@ -26,15 +27,21 @@ export default function Login({
       },
     });
 
-    if(data.user) {
-        return redirect("/signup?message=Email already exists please log in")
-    }
+    //if theyve confirmed
+    (async()=> {
+        if(data.user) {
+            const profile = await getProfile(data.user.id)
+            if(profile === undefined) {
+                return redirect("/signup?message=Email already exists please log in")
+            }
+        }
+    })()
 
     if (error) {
         return redirect("/signup?message=Could not authenticate user");
     }
 
-    return redirect("/signup?message=Check email to continue sign in process");
+    return redirect("/signup?message=Check your email to continue sign in process");
   };
 
   return (
