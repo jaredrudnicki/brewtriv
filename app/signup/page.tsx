@@ -1,29 +1,31 @@
+"use client"
 import Link from "next/link";
-import { headers } from "next/headers";
-import { createClient } from "@/utils/supabase/server";
-import { redirect } from "next/navigation";
+import { createClient } from "@/utils/supabase/client";
 import { SubmitButton } from "@/components/submit-button";
 import { getProfile } from "@/utils/actions";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import AlertBox from "@/components/AlertBox";
 
-export default function Login({
-  searchParams,
-}: {
-  searchParams: { message: string };
-}) {
+export default function SignUp() {
 
-  const signUp = async (formData: FormData) => {
-    "use server";
+  const supabase = createClient();
+  const { push } = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertType, setAlertType] = useState("");
 
-    const origin = headers().get("origin");
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
-    const supabase = createClient();
+  const signUp = async () => {
+    const isProd = process.env.NODE_ENV === 'production';
+    const redirectLink = isProd ? 'https://www.brewtriv.com/quizzes' : 'http://localhost:3000/quizzes';
 
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
-        emailRedirectTo: `${origin}/auth/v1`,
+        emailRedirectTo: redirectLink,
       },
     });
 
@@ -32,19 +34,30 @@ export default function Login({
         if(data.user) {
             const profile = await getProfile(data.user.id)
             if(profile === undefined) {
-                return redirect("/signup?message=Email already exists please log in")
+                setShowAlert(true);
+                setAlertType("error");
+                setAlertMessage("Email already exists please log in");
+                return;
             }
         }
     })()
 
     if (error) {
-        return redirect("/signup?message=Could not authenticate user");
+        setShowAlert(true);
+        setAlertType("error");
+        setAlertMessage("message=Could not authenticate user");
+        return;
     }
 
-    return redirect("/signup?message=Check your email to continue sign in process");
+    setShowAlert(true);
+    setAlertType("success");
+    setAlertMessage("Check your email to continue sign in process");
+    return;
   };
 
   return (
+    <>
+    {AlertBox(showAlert, alertType, alertMessage)}
     <div className="jcontainer justify-center gap-2 px-8 sm:max-w-md">
       <Link
         href="/quizzes"
@@ -68,7 +81,7 @@ export default function Login({
       </Link>
 
       
-      <form className="animate-in text-foreground mt-16 flex w-full flex-1 flex-col justify-center gap-2 text-white">
+      <div className="animate-in text-foreground mt-16 flex w-full flex-1 flex-col justify-center gap-2 text-white">
         <h1 className="w-full text-center text-white text-lg">Sign Up</h1>
         <p className="text-yellow-400 text-center">In order to play on brewtriv.com, you need to create an account and be logged in!</p>
         <label className="text-md" htmlFor="email">
@@ -79,6 +92,7 @@ export default function Login({
           name="email"
           placeholder="you@example.com"
           required
+          onChange={(e) => setEmail(e.target.value)}
         />
         <label className="text-md" htmlFor="password">
           Password
@@ -89,22 +103,19 @@ export default function Login({
           name="password"
           placeholder="••••••••"
           required
+          onChange={(e) => setPassword(e.target.value)}
         />
         <SubmitButton
-          formAction={signUp}
+          onClick={() => signUp()}
           className="text-foreground mb-2 rounded-md bg-green-700 px-4 py-2 text-white"
           pendingText="Signing Up..."
         >
           Sign Up
         </SubmitButton>
-        {searchParams?.message && (
-          <p className="bg-foreground/10 text-foreground mt-4 p-4 text-center text-yellow-400">
-            {searchParams.message}
-          </p>
-        )}
         <p className="text-center">Already have an account? <Link href="/login" className="underline">Log In</Link></p>
         
-      </form>
+      </div>
     </div>
+    </>
   );
 }
