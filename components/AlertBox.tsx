@@ -2,10 +2,7 @@
 import { alertTriangle, check } from "@/utils/showIcons";
 
 export default function AlertBox(showAlert: boolean = false, type: string  = "error", message: string) {
-    console.log('here: ', type, message);
-
-
-
+    
     if(showAlert) {
         return (
             <div className="w-full p-2">

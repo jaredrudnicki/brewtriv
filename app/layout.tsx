@@ -1,7 +1,6 @@
 import { Analytics } from "@vercel/analytics/react"
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
-import Header from "@/components/Header";
 
 const defaultUrl = process.env.NODE_ENV === "production" 
   ? 'https://www.brewtriv.com'
@@ -40,7 +39,6 @@ export default async function RootLayout({
   return (
     <html lang="en" className={GeistSans.className}>
       <body className="bg-background text-foreground bg-brewtriv-gray">
-        <Header />
         <main className="min-h-screen flex-col">{children}</main>
         <Analytics />
       </body>
