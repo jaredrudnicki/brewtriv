@@ -6,6 +6,7 @@ import { getProfile } from "@/utils/actions";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import AlertBox from "@/components/AlertBox";
+import AuthLayout from "../auth-layout";
 
 export default function SignUp() {
 
@@ -56,7 +57,7 @@ export default function SignUp() {
   };
 
   return (
-    <>
+    <AuthLayout>
     {AlertBox(showAlert, alertType, alertMessage)}
     <div className="jcontainer justify-center gap-2 px-8 sm:max-w-md">
       <Link
@@ -116,6 +117,6 @@ export default function SignUp() {
         
       </div>
     </div>
-    </>
+    </AuthLayout>
   );
 }
