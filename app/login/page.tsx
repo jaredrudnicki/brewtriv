@@ -5,7 +5,7 @@ import { SubmitButton } from "@/components/submit-button";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import AlertBox from "@/components/AlertBox";
-import AuthLayout from "../auth-layout";
+import RegularLayout from "../regular-layout";
 
 export default function Login({
   searchParams,
@@ -78,7 +78,7 @@ export default function Login({
 
 
   return (
-    <AuthLayout>
+    <RegularLayout>
     {AlertBox(showAlert, alertType, alertMessage)}
     <div className="jcontainer justify-center gap-2 px-8 sm:max-w-md">
       <Link
@@ -151,6 +151,6 @@ export default function Login({
         <p className="text-center">Dont have an account? <Link href="/signup" className="underline">Sign Up</Link></p>
       </div>
     </div>
-    </AuthLayout>
+    </RegularLayout>
   );
 }

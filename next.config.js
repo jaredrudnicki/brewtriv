@@ -7,7 +7,7 @@ const nextConfig = {
     metadataBase: new URL(url),
     assetPrefix: url,
     env: {
-        key: 'rudnickey',
+        key: process.env.key,
         url: url
     },
     async redirects() {

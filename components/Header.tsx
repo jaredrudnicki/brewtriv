@@ -1,5 +1,5 @@
 "use client";
-import AuthButton from "./AuthButton";
+import AuthButton from "./auth/AuthButton";
 
 export default function Header() {
   return (

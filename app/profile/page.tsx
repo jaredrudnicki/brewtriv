@@ -8,7 +8,7 @@ import { profileIcon } from "@/utils/showIcons";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import RegularLayout from "../regular-layout";
-import { check } from "@/utils/showIcons";
+import { check, logOut } from "@/utils/showIcons";
 
 export default function Profile() {
   const { push } = useRouter();
@@ -43,14 +43,32 @@ export default function Profile() {
     return 0;
   };
 
+  const signOut = async () => {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    setUser(null);
+
+    return push("/login");
+  };
+
   return (
     <RegularLayout>
       {!loading && user && (
         <div>
-          <div className="flex flex-row gap-2">
-            {profileIcon()}
-            <p className="text-xl">{user.email}</p>
+          <div className="flex flex-row justify-between">
+            <div className="flex flex-row gap-2">
+              {profileIcon()}
+              <p className="text-xl">{user.email}</p>
+            </div>
+            <button 
+              onClick={async() => await signOut()}
+              className="flex flew-row gap-1 bg-red-700 w-1/3 justify-center p-2 rounded"
+            >
+              {logOut()}
+              logout
+            </button>
           </div>
+
           <hr />
 
           <br />
@@ -117,6 +135,7 @@ export default function Profile() {
               </tr>
             </tbody>
           </table>
+
         </div>
       )}
     </RegularLayout>
