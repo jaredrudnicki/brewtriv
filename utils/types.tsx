@@ -34,3 +34,17 @@ export interface ProfileStatsData {
   play_solo_total: number;
   quizzes_made: number;
 }
+
+export interface UserStateData {
+  user_id: string | null;
+  email: string | null;
+  profile_name: string;
+  first_name: string;
+  last_name: string;
+  stripe_customer_id: string | null;
+  stripe_subscription_id: string | null;
+}
+
+export interface UserState {
+  user: UserStateData;
+}

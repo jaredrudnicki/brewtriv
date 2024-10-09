@@ -4,8 +4,8 @@ import RegularLayout from "../regular-layout";
 
 // import { User } from "@supabase/supabase-js";
 // import { ProfileStatsData } from "@/utils/types";
-import { getUser } from "@/utils/actions";
-import { useEffect } from "react";
+import { getIsPremiumUser, getUser } from "@/utils/actions";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 // import RegularLayout from "../regular-layout";
 
@@ -17,20 +17,26 @@ import { useRouter } from "next/navigation";
 //   let [profile, setProfile] = useState<ProfileStatsData | null>(null);
 
 export default function Page() {
-  const { push } = useRouter();
+    const { push } = useRouter();
 
-  useEffect(() => {
-    (async () => {
-      let user = await getUser();
-      if (user === null) {
-        return push("/login");
-      }
-    })();
-  }, []);
+    let [isPremiumUser, setIsPremiumUser] = useState(false);
 
-  return (
-    <RegularLayout>
-      <QuizForm />
-    </RegularLayout>
-  );
+    useEffect(() => {
+        (async () => {
+            const user = await getUser();
+            if (user === null) {
+                return push("/login");
+            } 
+            isPremiumUser = await getIsPremiumUser(user.id);
+            setIsPremiumUser(isPremiumUser);
+            console.log(isPremiumUser);
+			
+        })();
+    }, []);
+
+    return (
+        <RegularLayout>
+            <QuizForm isPremiumUser={isPremiumUser}/>
+        </RegularLayout>
+    );
 }

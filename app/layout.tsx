@@ -1,47 +1,57 @@
-import { Analytics } from "@vercel/analytics/react"
+import { Analytics } from "@vercel/analytics/react";
 import { GeistSans } from "geist/font/sans";
+import {NextUIProvider} from "@nextui-org/react";
+
+import ReduxProvider from "@/app/provider";
 import "./globals.css";
 
 const defaultUrl = process.env.NODE_ENV === "production" 
-  ? 'https://www.brewtriv.com'
-  : 'http://localhost:3000';
+    ? 'https://www.brewtriv.com'
+    : 'http://localhost:3000';
 
 export const metadata = {
-  metadataBase: new URL(defaultUrl),
-  title: "BrewTriv",
-  description: "The social trivia app helping you become a trivia buff",
-  openGraph: {
-    images: [
-      {
-        url: `${defaultUrl}/opengraph-image.png`,
-        width: 1200,
-        height: 600,
-      },
-    ],
-  },
-  twitter: {
-    images: [
-      {
-        url: `${defaultUrl}/twitter-image.png`,
-        width: 1200,
-        height: 600,
-      },
-    ]
-  },
-  type: 'website',
-}
+    metadataBase: new URL(defaultUrl),
+    title: "BrewTriv",
+    description: "The social trivia app helping you become a trivia buff",
+    openGraph: {
+        images: [
+            {
+                url: `${defaultUrl}/opengraph-image.png`,
+                width: 1200,
+                height: 600,
+            },
+        ],
+    },
+    twitter: {
+        images: [
+            {
+                url: `${defaultUrl}/twitter-image.png`,
+                width: 1200,
+                height: 600,
+            },
+        ]
+    },
+    type: 'website',
+};
 
 export default async function RootLayout({
-  children,
+    children,
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <html lang="en" className={GeistSans.className}>
-      <body className="bg-background text-foreground bg-brewtriv-gray">
-        <main className="min-h-screen flex-col">{children}</main>
-        <Analytics />
-      </body>
-    </html>
-  );
+    return (
+        <html lang="en" className={GeistSans.className}>
+          <head>
+            <link rel="preconnect" href="https://va.vercel-scripts.com" />
+          </head>
+            <body className="bg-background text-foreground bg-brewtriv-gray">
+              <NextUIProvider>
+                <ReduxProvider>
+                <main className="dark min-h-screen flex-col">{children}</main>
+                </ReduxProvider>
+              </NextUIProvider>
+              <Analytics />
+            </body>
+        </html>
+    );
 }

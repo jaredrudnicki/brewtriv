@@ -13,6 +13,8 @@ export default function SignUp() {
   const supabase = createClient();
   const { push } = useRouter();
   const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
@@ -27,10 +29,14 @@ export default function SignUp() {
       password,
       options: {
         emailRedirectTo: redirectLink,
+        data: {
+            first_name: firstName,
+            last_name: lastName,
+        }
       },
     });
 
-    //if theyve confirmed
+    //if they've confirmed
     (async()=> {
         if(data.user) {
             const profile = await getProfile(data.user.id)
@@ -53,6 +59,7 @@ export default function SignUp() {
     setShowAlert(true);
     setAlertType("success");
     setAlertMessage("Check your email to continue sign in process");
+    // TODO: dispatch...
     return;
   };
 
@@ -85,6 +92,34 @@ export default function SignUp() {
       <div className="animate-in text-foreground mt-16 flex w-full flex-1 flex-col justify-center gap-2 text-white">
         <h1 className="w-full text-center text-white text-lg">Sign Up</h1>
         <p className="text-yellow-400 text-center">In order to play on brewtriv.com, you need to create an account and be logged in!</p>
+        
+        <div className="flex flex-row gap-2">
+            <div className="flex-col">
+                <label className="text-md" htmlFor="firstname">
+                First Name
+                </label>
+                <input
+                className="mb-6 rounded-md border bg-inherit px-4 py-2 border-white w-full block"
+                name="firstname"
+                placeholder="Jane"
+                required
+                onChange={(e) => setFirstName(e.target.value)}
+                />
+            </div>
+            <div className="flex flex-col">
+                <label className="text-md" htmlFor="lastname">
+                    Last Name
+                </label>
+                <input
+                className="mb-6 rounded-md border bg-inherit px-4 py-2 border-white w-full block"
+                name="lastname"
+                placeholder="Doe"
+                required
+                onChange={(e) => setLastName(e.target.value)}
+                />
+            </div>
+        </div>
+        
         <label className="text-md" htmlFor="email">
           Email
         </label>

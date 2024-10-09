@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { alertTriangle, check } from "@/utils/showIcons";
 
 export default function AlertBox(showAlert: boolean = false, type: string  = "error", message: string) {
@@ -15,6 +15,6 @@ export default function AlertBox(showAlert: boolean = false, type: string  = "er
                     <p>{message}</p>
                 </div>
             </div>
-        )
+        );
     } 
 }

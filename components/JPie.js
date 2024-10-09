@@ -24,7 +24,7 @@ export default function JPie(correct, total) {
             name: "Incorrect",
             value: total - correct
         }
-    ]
+    ];
 
     //console.log(data);
 
@@ -35,7 +35,7 @@ export default function JPie(correct, total) {
             <Tooltip />
             <Legend align="left" verticalAlign="bottom" height={36}/>
             <Pie data={data} startAngle={180}
-          endAngle={0} cx={100} innerRadius={80} outerRadius={100} paddingAngle={4} >
+                endAngle={0} cx={100} innerRadius={80} outerRadius={100} paddingAngle={4} >
                 {
                     data.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={colors[index]} strokeWidth={0}/>
@@ -43,5 +43,5 @@ export default function JPie(correct, total) {
                 }
             </Pie>
         </PieChart>
-    )
+    );
 }

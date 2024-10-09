@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const isProd = process.env.NODE_ENV === 'production'
+const isProd = process.env.NODE_ENV === 'production';
 const url = isProd ? 'https://www.brewtriv.com' : 'http://localhost:3000';
 
 
@@ -12,13 +12,13 @@ const nextConfig = {
     },
     async redirects() {
         return [
-          // Basic redirect
-          {
-            source: '/',
-            destination: '/quizzes',
-            permanent: true,
-          },
-        ]
+            // Basic redirect
+            {
+                source: '/',
+                destination: '/daily',
+                permanent: true,
+            },
+        ];
     },
 };
 

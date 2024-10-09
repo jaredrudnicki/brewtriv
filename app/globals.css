@@ -41,6 +41,21 @@
     }
 }
 
+.animate-in-down {
+    animation: animateInDown 1s ease 0.15s both;
+}
+
+@keyframes animateInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
 .jinput {
     @apply block rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 border-gray-600 bg-gray-700 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500;
 }
