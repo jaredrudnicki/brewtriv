@@ -41,7 +41,8 @@ export default function Page() {
 
             yesterday = getYesterday();
             setYesterday(yesterday);
-            if (user !== null) {
+            if (user !== undefined) {
+                console.log(user)
                 profile = await getProfile(user.id);
                 setProfile(profile);
 

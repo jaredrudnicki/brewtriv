@@ -7,7 +7,7 @@ export default function RegularLayout({ children }) {
             <div className="w-full flex-none md:w-64 sticky top-0">
                 <SideNav />
             </div>
-            <div className="flex-grow px-6 md:overflow-y-auto md:p-12">        
+            <div className="flex-grow text-white px-6 md:overflow-y-auto md:p-12">        
                 {children}
             </div>
             <div className="w-full flex-none md:w-40">
