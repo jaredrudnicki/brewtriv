@@ -11,7 +11,6 @@ export default function AuthButton() {
     const { push } = useRouter();
     const user = useSelector((state: UserState) => state.user);
 
-    console.log(user, user.stripe_subscription_id);
     const signOut = async () => {
         const supabase = createClient();
         await supabase.auth.signOut();
