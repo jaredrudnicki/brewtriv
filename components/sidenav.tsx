@@ -2,23 +2,12 @@
 import Link from 'next/link';
 import NavLinks from '@/components/nav-links';
 import AuthButton from './auth/AuthButton';
-import { useEffect, useState } from 'react';
-import { getUser } from '@/utils/actions';
-import { User } from '@supabase/supabase-js';
+import { useSelector } from "react-redux";
+import { UserState } from "@/utils/types";
 
 export default function SideNav() {
-  
-    let [user, setUser] = useState<User | null>(null);
-    const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        (async() => {
-            user = await getUser();
-            setUser(user);
-            setIsLoading(false);
-        })();
-    }, []);
-
+    const user = useSelector((state: UserState) => state.user);
 
     return (
         <div className="flex h-full flex-col px-3 py-4 md:px-2">
@@ -34,9 +23,9 @@ export default function SideNav() {
             </Link>
             <div>
                 <div className="flex grow flex-row justify-start space-x-2 md:flex-col md:space-x-0 md:space-y-2 mb-2">
-                    <NavLinks />
+                    <NavLinks/>
                 </div>
-                {!user && (
+                {!user?.user_id && (
                     <AuthButton />
                 )}
         

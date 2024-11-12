@@ -4,6 +4,8 @@ import { globe, award, sun, plus, profileIcon } from "@/utils/showIcons";
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
+import { UserState } from "@/utils/types";
+import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getUser } from "@/utils/actions";
 import { User } from "@supabase/supabase-js";
@@ -21,18 +23,20 @@ const links = [
 ];
 
 export default function NavLinks() {
+
+    const user = useSelector((state: UserState) => state.user);
     const pathname = usePathname();
 
-    let [user, setUser] = useState<User | null>(null);
+    // let [user, setUser] = useState<User | null>(null);
     const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        (async() => {
-            user = await getUser();
-            setUser(user);
-            setIsLoading(false);
-        })();
-    });
+    // useEffect(() => {
+    //     (async() => {
+    //         user = await getUser();
+    //         setUser(user);
+    //         setIsLoading(false);
+    //     })();
+    // });
 
 
 
@@ -57,7 +61,7 @@ export default function NavLinks() {
                     </Link>
                 );
             })}
-            {user && (
+            {user?.user_id && (
                 <Link
                     key="Profile"
                     href="/profile"
