@@ -66,7 +66,6 @@ export default function QuizForm({ id = undefined, edit = false, isPremiumUser=f
 	};
 
 	const handleAdd = () => {
-		console.log(currentTab, questions.length)
 		setQuestions([...questions, baseQuestion]);
 		setCurrentTab(currentTab + 1);
 	};

@@ -298,7 +298,6 @@ export async function getDaily() {
         .eq("date", today)
         .then((response) => (response?.data ? response.data[0] : {}));
 
-    console.log(daily);
 
     return daily;
 }

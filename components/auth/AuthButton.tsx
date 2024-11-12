@@ -20,7 +20,7 @@ export default function AuthButton() {
     };
     return (
         <>
-        {user.user_id === null && (
+        {!user || user?.user_id === null && (
             <div className="w-full bg-yellow-700 rounded-md p-5 mb-5">
                 <h3 className="mb-2">
                     We noticed you are not logged in. To use this site, first log in or create an account.

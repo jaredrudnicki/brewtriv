@@ -32,6 +32,7 @@ export default function Page() {
     const [played, setPlayed] = useState(false);
     const [todayCorrect, setTodayCorrect] = useState(false);
     const [todayIncorrect, setTodayIncorrect] = useState(false);
+    console.log(user)
 
     useEffect(() => {
 
@@ -41,9 +42,8 @@ export default function Page() {
 
             yesterday = getYesterday();
             setYesterday(yesterday);
-            if (user !== undefined) {
-                console.log(user)
-                profile = await getProfile(user.id);
+            if (user.user_id !== null) {
+                profile = await getProfile(user.user_id);
                 setProfile(profile);
 
                 if (profile !== null) {
@@ -69,7 +69,7 @@ export default function Page() {
     }, []);
 
     const checkCorrect = () => {
-        if (user === null) {
+        if (user.user_id === null) {
             return push("/login");
         }
         if (selected === correct) {

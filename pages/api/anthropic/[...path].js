@@ -13,8 +13,6 @@ export default async function handler(req, res) {
     'x-api-key': apiKey,
   };
   
-  console.log(url);
-
   const response = await fetch(url, {
       method: req.method,
       headers: {
@@ -24,11 +22,8 @@ export default async function handler(req, res) {
       body: req.method !== 'GET' && req.method !== 'HEAD' ? req.body : undefined,
       redirect: "follow"
   })
-
-  console.log(response)
   // Get the response from the external API
   const data = await response.json();
-  console.log(data);
   // Set the status and headers from the external API response  
   response.headers.forEach((value, key) => {
     res.setHeader(key, value);
