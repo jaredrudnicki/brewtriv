@@ -17,8 +17,6 @@ export default function Success() {
     const redirectUrl = searchParams.get('redirectUrl');
     const quizTitle = searchParams.get('quizTitle')
     const quizDescription = searchParams.get('quizDescription')
-    console.log(quizTitle, quizDescription, `${redirectUrl}?quizTitle=${quizTitle}&quizDescription=${quizDescription}`)
-
 
     useEffect(() => {
         (async() => {
