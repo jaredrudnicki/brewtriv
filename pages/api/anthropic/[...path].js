@@ -11,7 +11,6 @@ export default async function handler(req, res) {
     'anthropic-version': '2023-06-01',
     'Content-Type': 'application/json',
     'x-api-key': apiKey,
-    // 'Authorization': `Bearer ${apiKey}`,
   };
   
   console.log(url);
@@ -30,9 +29,7 @@ export default async function handler(req, res) {
   // Get the response from the external API
   const data = await response.json();
   console.log(data);
-  //const buffer = Buffer.from(data);
-  // Set the status and headers from the external API response
-  
+  // Set the status and headers from the external API response  
   response.headers.forEach((value, key) => {
     res.setHeader(key, value);
   });

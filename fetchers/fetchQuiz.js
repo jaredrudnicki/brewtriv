@@ -10,8 +10,6 @@ export default async function fetchQuiz(title, description){
         //throw new Error("title or description is empty");
         return {type: "error", msg: "title or description is empty"};
     }
-
-    console.log('HERE', baseURL, title, description);
     
     const prompt = `give me 10 trivia questions for a quiz with the title: "${title}" and description: "${description}". Also, provide me the correct answer and 4 incorrect options. Can you put this in a JSON object with fields of question, correct, and incorrect (exclude new lines)? Only output this JSON object.`;
     const body = {
@@ -33,13 +31,9 @@ export default async function fetchQuiz(title, description){
             //headers: headers
         }).then(serverResponse => serverResponse)
 
-        console.log("AQUIAQUI: ", response);
         const data = await response.json();
-        console.log(data);
         const dataText = data.content[0].text;
-        console.log(dataText);
         const dataJson = dataText.replace(/(\r\n|\n|\r)/gm, "");
-        console.log(dataJson);
         //const data = await response.json()
         return JSON.parse(dataJson);
     } catch (error) {

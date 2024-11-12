@@ -209,7 +209,7 @@ export default function QuizForm({ id = undefined, edit = false, isPremiumUser=f
   ]
 
 	return (
-		<RegularLayout>
+		<>
 			{!isLoading ? (
 				<div className="jcontainer h-full">
           <form className="my-auto">
@@ -268,6 +268,6 @@ export default function QuizForm({ id = undefined, edit = false, isPremiumUser=f
 			): (
 				<Spinner />
 			)}
-		</RegularLayout>
+		</>
 	);
 }

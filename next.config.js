@@ -8,6 +8,8 @@ const nextConfig = {
     assetPrefix: url,
     env: {
         key: process.env.key,
+        STRIPE_TEST_PUBLISHABLE_KEY: process.env.STRIPE_TEST_PUBLISHABLE_KEY,
+        STRIPE_TEST_SECRET_KEY: process.env.STRIPE_TEST_SECRET_KEY,
         url: url
     },
     async redirects() {

@@ -67,7 +67,6 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
                 filter: `id=eq.${id}`,
             },
             (payload) => {
-                console.log("Change received!", payload);
                 if (payload.new.state === "NOT_STARTED") {
                     setUsersData(payload.new.users);
                     checkCanStart(payload.new.users);
@@ -87,7 +86,6 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
                     setUsersData(payload.new.users);
                     checkWinner();
 
-                    console.log("DELETING", currentQuestion, questionsData.length - 1);
                     if (channel.current) {
                         supabase.removeChannel(channel.current);
                     }

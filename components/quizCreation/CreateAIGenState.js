@@ -13,8 +13,6 @@ import BecomePro from "@/app/become-pro/page";
 import fetchQuiz from '@/fetchers/fetchQuiz';
 
 export default function CreateAIGenState({quizTitle, quizDescription, isPremiumUser, setQuestions, setCurrentTab}) {
-
-    console.log(quizTitle, quizDescription)
     const [magicLoading, setMagicLoading] = useState(false);
 
     const handleMagic = async(e) => {

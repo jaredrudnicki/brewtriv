@@ -447,7 +447,6 @@ export async function updateProfileDailyIncorrect(
 export async function updateProfileQuizzesMade(user: User) {
     const supabase = createClient();
     const profile = await getProfile(user.id);
-    console.log("HERE");
 
     const { error } = await supabase
         .from("profile_stats")

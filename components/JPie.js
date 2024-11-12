@@ -26,8 +26,6 @@ export default function JPie(correct, total) {
         }
     ];
 
-    //console.log(data);
-
     const colors = ["#00FF00", "#FF0000"];
 
     return (
