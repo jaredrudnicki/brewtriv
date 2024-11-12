@@ -42,7 +42,7 @@ export default function AuthButton() {
                 </div>
             </div>
         )}
-        {(user.stripe_customer_id !== null) && (
+        {(user && user.stripe_customer_id !== null) && (
             
             <div className="w-full border-2 border-white rounded-md p-5 mb-5">
                 <h3 className="mb-2">
