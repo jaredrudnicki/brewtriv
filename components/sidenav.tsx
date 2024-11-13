@@ -25,7 +25,7 @@ export default function SideNav() {
                 <div className="flex grow flex-row justify-start space-x-2 md:flex-col md:space-x-0 md:space-y-2 mb-2">
                     <NavLinks/>
                 </div>
-                {!user || !user?.user_id && (
+                {user && !user?.user_id && (
                     <AuthButton />
                 )}
         
