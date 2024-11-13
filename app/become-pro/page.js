@@ -7,7 +7,7 @@ import {
     useStripe,
     useElements
 } from "@stripe/react-stripe-js";
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, Suspense } from "react";
 import {loadStripe} from '@stripe/stripe-js';
 import { getCustomerId, getUser, getProfile, setCustomerId, getSubscriptionId} from "@/utils/actions";
 import {Spinner} from "@nextui-org/spinner";
@@ -191,7 +191,7 @@ export default function BecomePro( {params: {redirectUrl, quizTitle="", quizDesc
     };
 
     return (
-        <>
+        <Suspense>
             {!isLoading ? (
                 <>
                     {(error === "no user") && (
@@ -209,6 +209,6 @@ export default function BecomePro( {params: {redirectUrl, quizTitle="", quizDesc
             ) : (
                 <Spinner />
             )}
-        </>
+        </Suspense>
     );
 };

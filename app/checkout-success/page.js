@@ -1,9 +1,10 @@
 "use client";
 
 import { useSearchParams } from 'next/navigation';
-import { React, useEffect, useState } from "react";
+import  React, { Suspense, useEffect, useState } from "react";
 import { getUser, setSubscriptionId } from "@/utils/actions";
 import { useRouter } from "next/navigation";
+import Loading from "@/app/loading"
 
 export default function Success() {
     const { push } = useRouter();
@@ -30,14 +31,13 @@ export default function Success() {
                 console.log("incorrect user");
                 setError("incorrect user")
             }
-
             setIsLoading(false);
         })();
     }, []);
 
 
     return(
-        <>
+        <Suspense fallback={<Loading />}>
         {!isLoading && (
             <>
             {error && (
@@ -45,6 +45,6 @@ export default function Success() {
             )}
             </>
         )}
-        </>
+        </Suspense>
     );
 }

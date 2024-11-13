@@ -14,11 +14,9 @@ import {
 import {getUser} from "@/utils/auth"
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useSelector } from "react-redux";
 
 export default function Page() {
     let user = getUser();
-    console.log(user)
     const { push } = useRouter();
     let [today, setToday] = useState("");
     let [yesterday, setYesterday] = useState("");

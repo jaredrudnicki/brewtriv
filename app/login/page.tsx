@@ -5,8 +5,6 @@ import { SubmitButton } from "@/components/submit-button";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import AlertBox from "@/components/AlertBox";
-import { UserState } from "@/utils/types";
-import { UseDispatch, useDispatch, useSelector } from "react-redux";
 import { getProfile } from "@/utils/actions";
 import { getUser, setUser } from "@/utils/auth";
 

@@ -4,8 +4,9 @@ import QuizForm from "@/components/QuizForm";
 // import { User } from "@supabase/supabase-js";
 // import { ProfileStatsData } from "@/utils/types";
 import { getIsPremiumUser, getUser } from "@/utils/actions";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Loading from "@/app/loading";
 
 // export default function Profile() {
 
@@ -33,6 +34,8 @@ export default function Page() {
     }, []);
 
     return (
-        <QuizForm isPremiumUser={isPremiumUser}/>
+        <Suspense fallback={<Loading />}>
+            <QuizForm isPremiumUser={isPremiumUser}/>
+        </Suspense>
     );
 }
