@@ -27,17 +27,6 @@ export default function NavLinks() {
     const user = useSelector((state: UserState) => state.user);
     const pathname = usePathname();
 
-    // let [user, setUser] = useState<User | null>(null);
-    const [isLoading, setIsLoading] = useState(true);
-
-    // useEffect(() => {
-    //     (async() => {
-    //         user = await getUser();
-    //         setUser(user);
-    //         setIsLoading(false);
-    //     })();
-    // });
-
 
 
     return (
@@ -61,7 +50,7 @@ export default function NavLinks() {
                     </Link>
                 );
             })}
-            {user?.user_id && (
+            {user && user?.user_id && (
                 <Link
                     key="Profile"
                     href="/profile"

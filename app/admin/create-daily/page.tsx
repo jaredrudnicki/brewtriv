@@ -45,7 +45,7 @@ export default function Page() {
                 <label htmlFor="daily-question">Question</label>
                 <input
                     value={question}
-                    onChange={(e) => setQuestion(e.target.value)}
+                    onChange={(e: any) => setQuestion(e.target.value)}
                     className="jinput"
                     type="text"
                     id="daily-question"
@@ -54,7 +54,7 @@ export default function Page() {
                 <label htmlFor="daily-correct">Correct</label>
                 <input
                     value={correct}
-                    onChange={(e) => setCorrect(e.target.value)}
+                    onChange={(e: any) => setCorrect(e.target.value)}
                     className="jinput"
                     type="text"
                     id="daily-correct"
@@ -66,7 +66,7 @@ export default function Page() {
                         return (
                             <input
                                 value={option}
-                                onChange={(e) => handleIncorrect(e, i)}
+                                onChange={(e: any) => handleIncorrect(e, i)}
                                 className="jinput mb-2 w-full"
                                 type="text"
                                 id={`daily-incorrect-${i}`}

@@ -24,11 +24,11 @@ export default function Profile() {
     useEffect(() => {
         (async () => {
             // user = await getUser();
-            if (user.user_id === null) {
+            if (!user || user?.user_id === null) {
                 return push("/login");
             }
 
-            profile = await getProfile(user.user_id);
+            profile = await getProfile(user?.user_id);
             setProfile(profile);
 
             setLoading(false);
