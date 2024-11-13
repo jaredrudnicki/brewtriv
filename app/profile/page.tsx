@@ -1,19 +1,16 @@
 "use client";
 import { createClient } from "@/utils/supabase/client";
 
-import { User } from "@supabase/supabase-js";
 import { ProfileStatsData, UserState } from "@/utils/types";
-import { getUser, getProfile, updateProfileName } from "@/utils/actions";
+import { getProfile, updateProfileName } from "@/utils/actions";
 import { profileIcon } from "@/utils/showIcons";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { check, logOut } from "@/utils/showIcons";
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from "@/lib/user/userSlice";
+import { clearUser, getUser } from "@/utils/auth";
 
 export default function Profile() {
-    const dispatch = useDispatch();
-    let user = useSelector((state : UserState) => state.user);
+    let user = getUser();
     const { push } = useRouter();
     const [loading, setLoading] = useState(true);
     let [profile, setProfile] = useState<ProfileStatsData | null>(null);
@@ -22,7 +19,6 @@ export default function Profile() {
 
     useEffect(() => {
         (async () => {
-            // user = await getUser();
             if (user && user?.user_id !== null) {
                 profile = await getProfile(user?.user_id);
                 setProfile(profile);
@@ -45,7 +41,7 @@ export default function Profile() {
     };
 
     const signOut = async () => {
-        dispatch(logout({}));
+        clearUser();
         const supabase = createClient();
         await supabase.auth.signOut();
         return push("/login");

@@ -2,12 +2,11 @@
 import Link from 'next/link';
 import NavLinks from '@/components/nav-links';
 import AuthButton from './auth/AuthButton';
-import { useSelector } from "react-redux";
-import { UserState } from "@/utils/types";
+import { getUser } from '@/utils/auth';
 
 export default function SideNav() {
 
-    const user = useSelector((state: UserState) => state.user);
+    let user = getUser();
 
     return (
         <div className="flex h-full flex-col px-3 py-4 md:px-2">

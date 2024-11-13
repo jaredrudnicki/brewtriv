@@ -4,11 +4,7 @@ import { globe, award, sun, plus, profileIcon } from "@/utils/showIcons";
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
-import { UserState } from "@/utils/types";
-import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { getUser } from "@/utils/actions";
-import { User } from "@supabase/supabase-js";
+import { getUser } from "@/utils/auth";
 
 // Map of links to display in the side navigation.
 // Depending on the size of the application, this would be stored in a database.
@@ -24,7 +20,7 @@ const links = [
 
 export default function NavLinks() {
 
-    const user = useSelector((state: UserState) => state.user);
+    let user = getUser();
     const pathname = usePathname();
 
 

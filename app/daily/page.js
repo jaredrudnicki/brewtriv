@@ -11,12 +11,14 @@ import {
     decryptIncorrect,
     decryptCorrect,
 } from "@/utils/actions";
+import {getUser} from "@/utils/auth"
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 
 export default function Page() {
-    let user = useSelector((state) => state.user);
+    let user = getUser();
+    console.log(user)
     const { push } = useRouter();
     let [today, setToday] = useState("");
     let [yesterday, setYesterday] = useState("");

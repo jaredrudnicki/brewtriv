@@ -1,23 +1,11 @@
 "use client";
 import { createClient } from "@/utils/supabase/client";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useDispatch, useSelector } from "react-redux";
-import { UserState } from "@/utils/types";
-import { logout } from "@/lib/user/userSlice";
+import { getUser } from "@/utils/auth";
 
 export default function AuthButton() {
-    // const dispatch = useDispatch();
-    // const { push } = useRouter();
-    const user = useSelector((state: UserState) => state.user);
+    let user = getUser();
 
-    // const signOut = async () => {
-    //     const supabase = createClient();
-    //     await supabase.auth.signOut();
-    //     dispatch(logout({}));
-
-    //     return push("/login");
-    // };
     return (
         <>
         {user && user?.user_id === null && (

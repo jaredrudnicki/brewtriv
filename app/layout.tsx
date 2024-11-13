@@ -3,8 +3,6 @@ import { GeistSans } from "geist/font/sans";
 import {NextUIProvider} from "@nextui-org/react";
 import SideNav from "@/components/sidenav";
 
-
-import ReduxProvider from "@/app/provider";
 import "./globals.css";
 
 const defaultUrl = process.env.NODE_ENV === "production" 
@@ -48,7 +46,7 @@ export default async function RootLayout({
           </head>
             <body className="bg-background text-foreground bg-brewtriv-gray">
               <NextUIProvider>
-                <ReduxProvider>
+                
 
                 <main className="dark min-h-screen flex-col">
                 <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
@@ -63,7 +61,7 @@ export default async function RootLayout({
                     </div>
                 </div>
                 </main>
-                </ReduxProvider>
+                
               </NextUIProvider>
               <Analytics />
             </body>

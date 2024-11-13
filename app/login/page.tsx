@@ -8,15 +8,14 @@ import AlertBox from "@/components/AlertBox";
 import { UserState } from "@/utils/types";
 import { UseDispatch, useDispatch, useSelector } from "react-redux";
 import { getProfile } from "@/utils/actions";
-import { setUser } from "@/lib/user/userSlice";
+import { getUser, setUser } from "@/utils/auth";
 
 export default function Login({
     searchParams,
 }: {
   searchParams: { message: string };
 }) {
-    const dispatch = useDispatch();
-    const user = useSelector((state: UserState) => state.user);
+    let user = getUser();
     const supabase = createClient();
     const { push } = useRouter();
     const [email, setEmail] = useState("");
@@ -50,7 +49,17 @@ export default function Login({
         }
         setShowAlert(false);
         const profile = await getProfile(data.user.id);
-        dispatch(setUser({"user": {
+        // dispatch(setUser({"user": {
+        //     user_id: data.user.id,
+        //     email: data.user.email,
+        //     profile_name: profile.profile_name,
+        //     first_name: profile.first_name,
+        //     last_name: profile.last_name,
+        //     stripe_customer_id: profile.stripe_customer_id,
+        //     stripe_subscription_id: profile.stripe_subscription_id,
+        // }}))
+
+        setUser({
             user_id: data.user.id,
             email: data.user.email,
             profile_name: profile.profile_name,
@@ -58,7 +67,7 @@ export default function Login({
             last_name: profile.last_name,
             stripe_customer_id: profile.stripe_customer_id,
             stripe_subscription_id: profile.stripe_subscription_id,
-        }}))
+        });
         push('/quizzes');
         //return redirect("/quizzes");
     };
