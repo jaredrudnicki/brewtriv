@@ -1,7 +1,6 @@
 "use client";
 import { createClient } from "@/utils/supabase/client";
 import Quiz from "@/components/Quiz";
-import RegularLayout from "../regular-layout";
 import { useState, useEffect } from "react";
 import { getQuizzes, getUser } from "@/utils/actions";
 import { User } from "@supabase/supabase-js";
@@ -39,7 +38,7 @@ export default function Page() {
     };
 
     return (
-        <RegularLayout>
+        <>
             {!loading && (
                 <div>
                     {quizzesData?.map((quiz) => {
@@ -54,6 +53,6 @@ export default function Page() {
                 </div>
             )}
             {loading && <div>loading</div>}
-        </RegularLayout>
+        </>
     );
 }

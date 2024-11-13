@@ -7,7 +7,6 @@ import {
     decryptQuestions,
 } from "@/utils/actions";
 import { useEffect, useState } from "react";
-import RegularLayout from "@/app/regular-layout";
 import { chevronLeft, chevronRight } from "@/utils/showIcons";
 import { useRouter } from "next/navigation";
 import JPie from '@/components/JPie';
@@ -114,7 +113,7 @@ export default function PlayQuiz({ id }) {
     };
 
     return (
-        <RegularLayout>
+        <>
             <div className="center mb-4 flex w-full items-center justify-between">
                 <div>
                     <button
@@ -192,6 +191,6 @@ export default function PlayQuiz({ id }) {
           
                 </div>
             )}
-        </RegularLayout>
+        </>
     );
 }

@@ -12,7 +12,6 @@ import CreateTitleQuizDescState from "@/components/quizCreation/CreateTitleDescS
 import CreateAIGenState from "@/components/quizCreation/CreateAIGenState";
 
 import { Spinner } from "@nextui-org/spinner";
-import RegularLayout from "@/app/regular-layout";
 
 export default function QuizForm({ id = undefined, edit = false, isPremiumUser=false }) {
 	const searchParams = useSearchParams();

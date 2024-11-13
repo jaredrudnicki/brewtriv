@@ -12,7 +12,6 @@ import {
     decryptCorrect,
 } from "@/utils/actions";
 import { useEffect, useState } from "react";
-import RegularLayout from "../regular-layout";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 
@@ -107,7 +106,7 @@ export default function Page() {
     };
 
     return (
-        <RegularLayout>
+        <>
             <h1 className="mb-4 text-xl">{question}</h1>
 
             {played && (
@@ -139,6 +138,6 @@ export default function Page() {
             >
         Submit
             </button>
-        </RegularLayout>
+        </>
     );
 }

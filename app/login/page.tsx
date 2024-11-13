@@ -5,7 +5,6 @@ import { SubmitButton } from "@/components/submit-button";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import AlertBox from "@/components/AlertBox";
-import RegularLayout from "../regular-layout";
 import { UserState } from "@/utils/types";
 import { UseDispatch, useDispatch, useSelector } from "react-redux";
 import { getProfile } from "@/utils/actions";
@@ -94,7 +93,7 @@ export default function Login({
 
 
     return (
-        <RegularLayout>
+        <>
             {AlertBox(showAlert, alertType, alertMessage)}
             <div className="jcontainer justify-center gap-2 px-8 sm:max-w-md">
                 <Link
@@ -167,6 +166,6 @@ export default function Login({
                     <p className="text-center">Dont have an account? <Link href="/signup" className="underline">Sign Up</Link></p>
                 </div>
             </div>
-        </RegularLayout>
+        </>
     );
 }

@@ -7,17 +7,17 @@ import { UserState } from "@/utils/types";
 import { logout } from "@/lib/user/userSlice";
 
 export default function AuthButton() {
-    const dispatch = useDispatch();
-    const { push } = useRouter();
+    // const dispatch = useDispatch();
+    // const { push } = useRouter();
     const user = useSelector((state: UserState) => state.user);
 
-    const signOut = async () => {
-        const supabase = createClient();
-        await supabase.auth.signOut();
-        dispatch(logout({}));
+    // const signOut = async () => {
+    //     const supabase = createClient();
+    //     await supabase.auth.signOut();
+    //     dispatch(logout({}));
 
-        return push("/login");
-    };
+    //     return push("/login");
+    // };
     return (
         <>
         {user && user?.user_id === null && (

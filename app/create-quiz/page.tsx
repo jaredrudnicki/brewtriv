@@ -1,13 +1,11 @@
 "use client";
 import QuizForm from "@/components/QuizForm";
-import RegularLayout from "../regular-layout";
 
 // import { User } from "@supabase/supabase-js";
 // import { ProfileStatsData } from "@/utils/types";
 import { getIsPremiumUser, getUser } from "@/utils/actions";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-// import RegularLayout from "../regular-layout";
 
 // export default function Profile() {
 
@@ -35,8 +33,6 @@ export default function Page() {
     }, []);
 
     return (
-        <RegularLayout>
-            <QuizForm isPremiumUser={isPremiumUser}/>
-        </RegularLayout>
+        <QuizForm isPremiumUser={isPremiumUser}/>
     );
 }

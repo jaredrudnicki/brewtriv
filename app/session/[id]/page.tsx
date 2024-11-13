@@ -11,7 +11,6 @@ import {
 } from "@/utils/actions";
 import { createClient } from "@/utils/supabase/client";
 import { RealtimeChannel, User } from "@supabase/supabase-js";
-import RegularLayout from "@/app/regular-layout";
 import { check, xMark, clipboard } from "@/utils/showIcons";
 import { useEffect, useState, useRef } from "react";
 import { Question, UserData } from "@/utils/types";
@@ -277,7 +276,7 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
         return <p>spinner</p>;
     } 
     return (
-        <RegularLayout>
+        <>
             {gameState === "NOT_STARTED" && (
                 <div className="grid md:grid-cols-2">
                     {/* User Menu */}
@@ -427,7 +426,7 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
                     )}
                 </div>
             )}
-        </RegularLayout>
+        </>
     );
 	
 }

@@ -2,7 +2,6 @@
 import { useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { SubmitButton } from "@/components/submit-button";
-import RegularLayout from "../regular-layout";
 
 const supabase = createClient();
 
@@ -34,7 +33,7 @@ export default function ResetPasswordPage() {
     };
 
     return (
-        <RegularLayout>
+        <>
             <div className="flex flex-col jcontainer">
                 <label htmlFor="new-password">New Password</label>
                 <input
@@ -53,6 +52,6 @@ export default function ResetPasswordPage() {
           Change Password
                 </SubmitButton>
             </div>
-        </RegularLayout>
+        </>
     );
 }

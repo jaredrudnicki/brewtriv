@@ -1,6 +1,5 @@
 "use client";
 
-import RegularLayout from "@/app/regular-layout";
 import { useState } from "react";
 import { addDaily, getUser, getDailyDate } from "@/utils/actions";
 
@@ -40,7 +39,7 @@ export default function Page() {
     };
 
     return (
-        <RegularLayout>
+        <>
             <div className="flex flex-col">
                 <label htmlFor="daily-question">Question</label>
                 <input
@@ -83,6 +82,6 @@ export default function Page() {
                 </button>
                 {error && <p>{error}</p>}
             </div>
-        </RegularLayout>
+        </>
     );
 }

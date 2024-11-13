@@ -1,6 +1,8 @@
 import { Analytics } from "@vercel/analytics/react";
 import { GeistSans } from "geist/font/sans";
 import {NextUIProvider} from "@nextui-org/react";
+import SideNav from "@/components/sidenav";
+
 
 import ReduxProvider from "@/app/provider";
 import "./globals.css";
@@ -47,7 +49,20 @@ export default async function RootLayout({
             <body className="bg-background text-foreground bg-brewtriv-gray">
               <NextUIProvider>
                 <ReduxProvider>
-                <main className="dark min-h-screen flex-col">{children}</main>
+
+                <main className="dark min-h-screen flex-col">
+                <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
+                    <div className="w-full flex-none md:w-64 sticky top-0">
+                        <SideNav />
+                    </div>
+                    <div className="flex-grow text-white px-6 md:overflow-y-auto md:p-12">        
+                        {children}
+                    </div>
+                    <div className="w-full flex-none md:w-40">
+                
+                    </div>
+                </div>
+                </main>
                 </ReduxProvider>
               </NextUIProvider>
               <Analytics />

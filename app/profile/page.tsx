@@ -7,7 +7,6 @@ import { getUser, getProfile, updateProfileName } from "@/utils/actions";
 import { profileIcon } from "@/utils/showIcons";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import RegularLayout from "../regular-layout";
 import { check, logOut } from "@/utils/showIcons";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "@/lib/user/userSlice";
@@ -30,6 +29,7 @@ export default function Profile() {
             } else {
                 return push("/login");
             }
+
             setLoading(false);
         })();
     }, []);
@@ -45,15 +45,14 @@ export default function Profile() {
     };
 
     const signOut = async () => {
+        dispatch(logout({}));
         const supabase = createClient();
         await supabase.auth.signOut();
-        dispatch(logout({}));
-
         return push("/login");
     };
 
     return (
-        <RegularLayout>
+        <>
             {!loading && user && (
                 <div>
                     <div className="flex flex-row justify-between">
@@ -139,6 +138,6 @@ export default function Profile() {
 
                 </div>
             )}
-        </RegularLayout>
+        </>
     );
 }
