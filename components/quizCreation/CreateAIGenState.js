@@ -39,14 +39,14 @@ export default function CreateAIGenState({quizTitle, quizDescription, isPremiumU
         <>
             {isPremiumUser ? (
                 <>
-                <button
+                <Button
                     onClick={async(e) => {
                         await handleMagic(e);
                     }}
                     className="txt-lg me-4 mt-2 rounded bg-gradient-to-br from-cyan-500 to-blue-500 px-4 py-2 hover:from-cyan-400 hover:to-blue-400 focus:from-cyan-500 focus:to-blue-500"
                 >
                     magic 
-                </button>
+                </Button>
                 {magicLoading && (
                     <p>loading</p>
                 )}
