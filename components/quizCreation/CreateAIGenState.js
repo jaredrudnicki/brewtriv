@@ -14,9 +14,9 @@ import fetchQuiz from '@/fetchers/fetchQuiz';
 
 export default function CreateAIGenState({quizTitle, quizDescription, isPremiumUser, setQuestions, setCurrentTab}) {
     const [magicLoading, setMagicLoading] = useState(false);
+    const [magicSuccess, setMagicSuccess] = useState(false)
 
     const handleMagic = async(e) => {
-        e.preventDefault();
         setMagicLoading(true);
 		const response = await fetchQuiz(quizTitle, quizDescription);
 		const newQuestions = [];
@@ -30,6 +30,7 @@ export default function CreateAIGenState({quizTitle, quizDescription, isPremiumU
 		setQuestions(newQuestions);
 		setCurrentTab(newQuestions.length);
         setMagicLoading(false);
+        setMagicSuccess(true);
 	}
 
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
@@ -48,6 +49,9 @@ export default function CreateAIGenState({quizTitle, quizDescription, isPremiumU
                 </button>
                 {magicLoading && (
                     <p>loading</p>
+                )}
+                {magicSuccess && (
+                    <p>success</p>
                 )}
                 </>
             ):(

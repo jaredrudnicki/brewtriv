@@ -113,7 +113,7 @@ function CheckoutForm({subscriptionId, userId, redirectUrl, quizTitle="", quizDe
     );
 }
 
-export default function BecomePro( {params: {redirectUrl, quizTitle="", quizDescription=""}}) {
+export default function BecomePro({redirectUrl="create-quiz", quizTitle="", quizDescription=""}) {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState("");
     const [clientSecret, setClientSecret] = useState("");
